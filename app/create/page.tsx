@@ -26,12 +26,25 @@ export default function CreatePage() {
     { value: "foxes", label: "Foxes", emoji: "🦊" },
   ];
 
+  // Get animal name from petVibe
+  const getAnimalName = (vibe: PetVibe) => {
+    const names = {
+      cats: "cat",
+      dogs: "dog",
+      bunnies: "bunny",
+      foxes: "fox",
+    };
+    return names[vibe];
+  };
+
+  const animal = getAnimalName(petVibe);
+
   const slides = [
     {
       title: "MEMORIES",
       text: "Every moment with you feels like a favorite song on repeat",
       subtext: "the kind you never skip",
-      image: "/images/funky-cat.jpg",
+      image: `/images/${petVibe}/funky-${animal}.jpg`,
       bg: "bg-gradient-to-br from-funky-navy via-funky-purple to-funky-navy",
       frame: "bg-funky-navy/40 backdrop-blur-md border border-funky-purple/30",
       hasButtons: false,
@@ -40,7 +53,7 @@ export default function CreatePage() {
       title: "VIBES",
       text: "You're the perfect playlist",
       subtext: "every track hits different",
-      image: "/images/tipsy-cat.jpg",
+      image: `/images/${petVibe}/tipsy-${animal}.jpg`,
       bg: "bg-gradient-to-br from-tipsy-burgundy via-tipsy-wine to-tipsy-burgundy",
       frame: "bg-tipsy-burgundy/40 backdrop-blur-md border border-tipsy-rose/30",
       hasButtons: false,
@@ -49,7 +62,7 @@ export default function CreatePage() {
       title: "FEELS",
       text: "Like a cloudy day with you",
       subtext: "somehow it's still the best day",
-      image: "/images/cloudy-cat.jpg",
+      image: `/images/${petVibe}/cloudy-${animal}.jpg`,
       bg: "bg-gradient-to-br from-cloudy-teal via-cloudy-mint to-cloudy-teal",
       frame: "bg-cloudy-teal/40 backdrop-blur-md border border-cloudy-mint/30",
       hasButtons: false,
@@ -58,7 +71,7 @@ export default function CreatePage() {
       title: "QUESTION",
       text: "So... wanna be my Valentine?",
       subtext: "pick your answer wisely",
-      image: "/images/meowcha-cat.jpg",
+      image: `/images/${petVibe}/meowcha-${animal}.jpg`,
       bg: "bg-gradient-to-br from-meowcha-olive via-meowcha-lime/20 to-meowcha-olive",
       frame: "bg-meowcha-olive/40 backdrop-blur-md border border-meowcha-lime/30",
       hasButtons: true,
@@ -67,7 +80,7 @@ export default function CreatePage() {
       title: "YAYYY",
       text: "Best decision ever!",
       subtext: "let's make this Valentine's unforgettable",
-      image: "/images/celebration-cat.jpg",
+      image: `/images/${petVibe}/celebration-${animal}.jpg`,
       bg: "bg-gradient-to-br from-celebration-pink via-celebration-peach to-celebration-coral",
       frame: "bg-celebration-pink/40 backdrop-blur-md border border-celebration-coral/30",
       hasButtons: false,
@@ -259,62 +272,74 @@ export default function CreatePage() {
   // Selection Screen
   if (step === "select") {
     return (
-      <div className="h-screen w-screen bg-gradient-to-br from-funky-navy via-funky-purple to-funky-navy grain-intense scanline flex items-center justify-center p-4">
+      <div className="h-screen w-screen bg-background grain-intense flex items-center justify-center p-4">
         {/* Back button */}
         <Link
           href="/"
-          className="absolute top-4 left-4 md:top-8 md:left-8 px-4 py-2 bg-white/10 hover:bg-white/20 text-white/70 hover:text-white font-mono text-sm rounded-lg transition backdrop-blur-sm border border-white/10 z-50"
+          className="absolute top-4 left-4 md:top-8 md:left-8 px-4 py-2 bg-background/80 hover:bg-accent text-muted-foreground hover:text-foreground font-mono text-sm rounded-lg transition backdrop-blur-sm border border-border z-50"
         >
           ← Back
         </Link>
 
-        <div className="relative w-full max-w-2xl bg-funky-navy/40 backdrop-blur-md border border-funky-purple/30 rounded-3xl shadow-2xl p-8 md:p-12">
-          <div className="text-center space-y-8">
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="text-white/40 text-xs font-mono">SIDE A</div>
-              <div className="w-12 h-[2px] bg-white/20"></div>
+        <div className="relative w-full max-w-2xl bg-card/80 backdrop-blur-xl border border-border/50 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] p-8 md:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+          {/* Decorative gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 rounded-3xl pointer-events-none" />
+
+          <div className="relative text-center space-y-8">
+            <div className="flex items-center justify-center gap-4 mb-8 animate-in fade-in duration-700 delay-100">
+              <div className="text-muted-foreground text-xs font-mono uppercase tracking-wider">SIDE A</div>
+              <div className="w-12 h-[1px] bg-gradient-to-r from-transparent via-border to-transparent"></div>
             </div>
 
-            <h1 className="font-serif text-4xl md:text-5xl font-bold text-white tracking-widest text-shadow-lg text-shadow-black/30 mb-8">
-              VALENTINE
-            </h1>
+            <div className="mb-8 space-y-3 animate-in fade-in duration-700 delay-200">
+              <h1 className="font-display text-3xl md:text-5xl font-extrabold text-foreground bg-clip-text">
+                Just Start.
+              </h1>
+              <p className="font-serif italic text-lg md:text-xl text-primary/90">
+                Create something beautiful
+              </p>
+            </div>
 
-            <form onSubmit={handleStart} className="space-y-6">
+            <form onSubmit={handleStart} className="space-y-8 animate-in fade-in duration-700 delay-300">
               {/* Name Input */}
-              <div className="space-y-2">
-                <label htmlFor="name" className="block text-white/70 font-mono text-sm">
-                  who's this for?
+              <div className="space-y-3 text-left">
+                <label htmlFor="name" className="block text-muted-foreground font-mono text-sm uppercase tracking-wide">
+                  Who's this for?
                 </label>
                 <input
                   id="name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="enter their name"
-                  className="w-full px-4 py-3 bg-black/30 border border-white/20 rounded-xl text-white font-mono placeholder:text-white/30 focus:outline-none focus:border-funky-pink/50 focus:ring-2 focus:ring-funky-pink/20"
+                  placeholder="Enter their name..."
+                  className="w-full px-5 py-4 bg-background/50 backdrop-blur-sm border border-input/50 rounded-2xl text-foreground font-sans text-lg placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-300 hover:border-input"
                   autoFocus
                 />
               </div>
 
               {/* Pet Vibe Selector */}
-              <div className="space-y-3">
-                <label className="block text-white/70 font-mono text-sm">
-                  choose your vibe
+              <div className="space-y-4 text-left">
+                <label className="block text-muted-foreground font-mono text-sm uppercase tracking-wide">
+                  Choose your vibe
                 </label>
-                <div className="grid grid-cols-2 gap-3">
-                  {petVibes.map((vibe) => (
+                <div className="grid grid-cols-2 gap-4">
+                  {petVibes.map((vibe, index) => (
                     <button
                       key={vibe.value}
                       type="button"
                       onClick={() => setPetVibe(vibe.value)}
-                      className={`px-4 py-3 rounded-xl font-mono text-sm transition-all ${
+                      style={{ animationDelay: `${index * 50}ms` }}
+                      className={`group relative px-5 py-4 rounded-2xl font-sans font-medium text-base transition-all duration-300 animate-in fade-in slide-in-from-bottom-2 ${
                         petVibe === vibe.value
-                          ? "bg-funky-pink text-white border-2 border-funky-pink scale-105"
-                          : "bg-black/20 text-white/60 border border-white/20 hover:bg-black/30"
+                          ? "bg-primary text-primary-foreground border-2 border-primary shadow-lg shadow-primary/25 scale-[1.02]"
+                          : "bg-secondary/50 backdrop-blur-sm text-secondary-foreground border-2 border-border/50 hover:border-primary/50 hover:bg-secondary/80 hover:scale-[1.02]"
                       }`}
                     >
-                      <span className="text-2xl mr-2">{vibe.emoji}</span>
-                      {vibe.label}
+                      <span className="text-3xl mr-3 inline-block group-hover:scale-110 transition-transform duration-300">{vibe.emoji}</span>
+                      <span>{vibe.label}</span>
+                      {petVibe === vibe.value && (
+                        <div className="absolute inset-0 rounded-2xl bg-primary/10 animate-pulse pointer-events-none" />
+                      )}
                     </button>
                   ))}
                 </div>
@@ -322,7 +347,7 @@ export default function CreatePage() {
 
               {/* Custom Prompt (Optional) */}
               <details className="group">
-                <summary className="cursor-pointer text-white/50 font-mono text-sm hover:text-white/70 transition">
+                <summary className="cursor-pointer text-muted-foreground font-mono text-sm hover:text-foreground transition">
                   Advanced: Custom style prompt
                 </summary>
                 <div className="mt-3">
@@ -330,7 +355,7 @@ export default function CreatePage() {
                     value={customPrompt}
                     onChange={(e) => setCustomPrompt(e.target.value)}
                     placeholder="e.g., cyberpunk style, neon colors, futuristic..."
-                    className="w-full px-4 py-3 bg-black/30 border border-white/20 rounded-xl text-white font-mono text-sm placeholder:text-white/30 focus:outline-none focus:border-funky-pink/50 focus:ring-2 focus:ring-funky-pink/20 resize-none"
+                    className="w-full px-4 py-3 bg-background border border-input rounded-xl text-foreground font-mono text-sm placeholder:text-muted-foreground focus:outline-none focus:border-ring focus:ring-2 focus:ring-ring/20 resize-none"
                     rows={3}
                   />
                 </div>
@@ -339,15 +364,28 @@ export default function CreatePage() {
               <button
                 type="submit"
                 disabled={!name.trim() || isStarting}
-                className="w-full px-8 py-4 bg-funky-pink text-white font-mono font-bold text-lg rounded-2xl hover:scale-105 transition-transform shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="group relative w-full px-8 py-5 bg-primary text-primary-foreground font-sans font-bold text-lg rounded-2xl hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 shadow-xl disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 overflow-hidden"
               >
-                {isStarting ? "Loading..." : "START ✨"}
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  {isStarting ? (
+                    <>
+                      <span className="animate-spin">⚡</span>
+                      Loading...
+                    </>
+                  ) : (
+                    <>
+                      START
+                      <span className="group-hover:rotate-12 transition-transform duration-300">✨</span>
+                    </>
+                  )}
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
             </form>
 
-            <div className="flex items-center justify-center gap-4 mt-8">
-              <div className="w-12 h-[2px] bg-white/20"></div>
-              <div className="text-white/40 text-xs font-mono">SIDE B</div>
+            <div className="flex items-center justify-center gap-4 mt-8 animate-in fade-in duration-700 delay-500">
+              <div className="w-12 h-[1px] bg-gradient-to-l from-transparent via-border to-transparent"></div>
+              <div className="text-muted-foreground text-xs font-mono uppercase tracking-wider">SIDE B</div>
             </div>
           </div>
         </div>
@@ -374,7 +412,7 @@ export default function CreatePage() {
               <div className="w-8 md:w-12 h-[2px] bg-white/20"></div>
             </div>
 
-            <h1 className="font-serif text-3xl md:text-5xl font-bold text-white tracking-widest text-shadow-lg text-shadow-black/30">
+            <h1 className="font-serif text-2xl md:text-4xl font-bold text-white tracking-widest text-shadow-lg text-shadow-black/30">
               {slide.title}
             </h1>
 
@@ -386,7 +424,7 @@ export default function CreatePage() {
 
           <div className={`flex-1 ${slide.frame} rounded-2xl md:rounded-3xl shadow-2xl relative p-4 md:p-8 flex flex-col min-h-0 animate-in fade-in duration-500`}>
             <div className="flex-1 flex items-center justify-center min-h-0">
-              <div className="relative w-full max-w-md aspect-square flex-shrink-0 animate-in zoom-in duration-700">
+              <div className="relative w-full max-w-md aspect-square flex-shrink-0 animate-in zoom-in duration-700 cat-float">
                 <Image
                   src={slide.image}
                   alt="Illustration"
@@ -398,10 +436,10 @@ export default function CreatePage() {
             </div>
 
             <div className="text-center space-y-2 md:space-y-3 mt-4 flex-shrink-0 animate-in slide-in-from-bottom duration-700 delay-200">
-              <p className="text-white font-serif text-2xl md:text-4xl font-bold leading-tight">
+              <p className="text-white font-serif text-xl md:text-3xl font-bold leading-tight">
                 {slide.text}
               </p>
-              <p className="text-white/60 font-mono text-sm md:text-base">{slide.subtext}</p>
+              <p className="text-white/60 font-mono text-xs md:text-sm">{slide.subtext}</p>
             </div>
 
             {slide.hasButtons && (
@@ -409,7 +447,7 @@ export default function CreatePage() {
                 <div className="absolute inset-0 flex items-center justify-center gap-4 md:gap-6">
                   <button
                     onClick={handleYes}
-                    className="px-8 md:px-12 py-3 md:py-5 bg-meowcha-brown text-meowcha-lime font-mono font-bold text-lg md:text-2xl rounded-2xl hover:scale-110 transition-all duration-200 shadow-xl hover:shadow-meowcha-lime/50 z-20 relative"
+                    className="px-6 md:px-10 py-2 md:py-4 bg-meowcha-brown text-meowcha-lime font-mono font-bold text-base md:text-xl rounded-2xl hover:scale-110 transition-all duration-200 shadow-xl hover:shadow-meowcha-lime/50 z-20 relative"
                   >
                     YES ✨
                   </button>
@@ -418,7 +456,7 @@ export default function CreatePage() {
                     style={{
                       transform: `translate(${noButtonPos.x}px, ${noButtonPos.y}px)`,
                     }}
-                    className="px-8 md:px-12 py-3 md:py-5 bg-white/30 text-meowcha-brown/60 font-mono text-lg md:text-2xl rounded-2xl cursor-pointer transition-transform duration-100 ease-out will-change-transform relative z-10"
+                    className="px-6 md:px-10 py-2 md:py-4 bg-white/30 text-meowcha-brown/60 font-mono text-base md:text-xl rounded-2xl cursor-pointer transition-transform duration-100 ease-out will-change-transform relative z-10"
                   >
                     no
                   </button>
