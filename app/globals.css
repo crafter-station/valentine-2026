@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --color-funky-navy: #1a1f3a;
   --color-funky-purple: #6b4ce6;
@@ -25,7 +29,6 @@
   --color-celebration-peach: #ffd1dc;
   --color-celebration-coral: #ff8fa3;
 }
-
 
 .grain::before {
   content: "";
@@ -80,30 +83,185 @@
   }
 }
 
-.scanline::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    transparent 100%
-  );
-  background-size: 100% 4px;
-  pointer-events: none;
-  animation: scanline-animation 6s linear infinite;
-  z-index: 2;
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
-@keyframes scanline-animation {
-  0% {
-    transform: translateY(-100%);
+:root {
+  --radius: 0.625rem;
+  /* Valentine Light Theme - Soft Pinks & Reds */
+  --background: oklch(0.98 0.015 10);
+  --foreground: oklch(0.2 0.03 10);
+  --card: oklch(1 0.01 10);
+  --card-foreground: oklch(0.2 0.03 10);
+  --popover: oklch(1 0.01 10);
+  --popover-foreground: oklch(0.2 0.03 10);
+  --primary: oklch(0.65 0.22 10);
+  --primary-foreground: oklch(1 0.01 10);
+  --secondary: oklch(0.92 0.03 10);
+  --secondary-foreground: oklch(0.2 0.03 10);
+  --muted: oklch(0.95 0.02 10);
+  --muted-foreground: oklch(0.5 0.02 10);
+  --accent: oklch(0.88 0.05 350);
+  --accent-foreground: oklch(0.2 0.03 10);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9 0.02 10);
+  --input: oklch(0.9 0.02 10);
+  --ring: oklch(0.65 0.22 10);
+  --chart-1: oklch(0.646 0.222 10);
+  --chart-2: oklch(0.7 0.15 350);
+  --chart-3: oklch(0.75 0.12 20);
+  --chart-4: oklch(0.65 0.18 340);
+  --chart-5: oklch(0.8 0.1 15);
+  --sidebar: oklch(0.985 0.01 10);
+  --sidebar-foreground: oklch(0.2 0.03 10);
+  --sidebar-primary: oklch(0.65 0.22 10);
+  --sidebar-primary-foreground: oklch(1 0.01 10);
+  --sidebar-accent: oklch(0.92 0.03 10);
+  --sidebar-accent-foreground: oklch(0.2 0.03 10);
+  --sidebar-border: oklch(0.9 0.02 10);
+  --sidebar-ring: oklch(0.65 0.22 10);
+}
+
+.dark {
+  /* Valentine Dark Theme - Deep Burgundy & Rose */
+  --background: oklch(0.15 0.03 10);
+  --foreground: oklch(0.95 0.015 350);
+  --card: oklch(0.2 0.04 10);
+  --card-foreground: oklch(0.95 0.015 350);
+  --popover: oklch(0.2 0.04 10);
+  --popover-foreground: oklch(0.95 0.015 350);
+  --primary: oklch(0.7 0.2 350);
+  --primary-foreground: oklch(0.98 0.01 350);
+  --secondary: oklch(0.25 0.04 10);
+  --secondary-foreground: oklch(0.95 0.015 350);
+  --muted: oklch(0.25 0.04 10);
+  --muted-foreground: oklch(0.65 0.03 350);
+  --accent: oklch(0.3 0.06 340);
+  --accent-foreground: oklch(0.95 0.015 350);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(0.3 0.04 10);
+  --input: oklch(0.25 0.04 10);
+  --ring: oklch(0.7 0.2 350);
+  --chart-1: oklch(0.7 0.2 350);
+  --chart-2: oklch(0.65 0.18 340);
+  --chart-3: oklch(0.75 0.15 10);
+  --chart-4: oklch(0.6 0.22 355);
+  --chart-5: oklch(0.8 0.12 15);
+  --sidebar: oklch(0.2 0.04 10);
+  --sidebar-foreground: oklch(0.95 0.015 350);
+  --sidebar-primary: oklch(0.7 0.2 350);
+  --sidebar-primary-foreground: oklch(0.98 0.01 350);
+  --sidebar-accent: oklch(0.25 0.04 10);
+  --sidebar-accent-foreground: oklch(0.95 0.015 350);
+  --sidebar-border: oklch(0.3 0.04 10);
+  --sidebar-ring: oklch(0.7 0.2 350);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-  100% {
-    transform: translateY(100%);
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
   }
+
+  /* Font families */
+  .font-display {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 800;
+  }
+
+  .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+}
+
+/* Cat bounce animation */
+@keyframes catBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
+}
+
+@keyframes catFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotate(-2deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@keyframes catWiggle {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-5deg) scale(1.02);
+  }
+  75% {
+    transform: rotate(5deg) scale(1.02);
+  }
+}
+
+.cat-bounce {
+  animation: catBounce 2s ease-in-out infinite;
+}
+
+.cat-float {
+  animation: catFloat 3s ease-in-out infinite;
+}
+
+.cat-wiggle {
+  animation: catWiggle 1.5s ease-in-out infinite;
 }
