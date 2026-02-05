@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import confetti from "canvas-confetti";
 
 type PetVibe = "cats" | "dogs" | "bunnies" | "foxes";
@@ -11,6 +12,7 @@ export default function CreatePage() {
   const [name, setName] = useState("");
   const [petVibe, setPetVibe] = useState<PetVibe>("cats");
   const [customPrompt, setCustomPrompt] = useState("");
+  const [isStarting, setIsStarting] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [accepted, setAccepted] = useState(false);
   const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 });
@@ -246,7 +248,11 @@ export default function CreatePage() {
   const handleStart = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim()) {
-      setStep("slides");
+      setIsStarting(true);
+      setTimeout(() => {
+        setStep("slides");
+        setIsStarting(false);
+      }, 600);
     }
   };
 
@@ -254,6 +260,14 @@ export default function CreatePage() {
   if (step === "select") {
     return (
       <div className="h-screen w-screen bg-gradient-to-br from-funky-navy via-funky-purple to-funky-navy grain-intense scanline flex items-center justify-center p-4">
+        {/* Back button */}
+        <Link
+          href="/"
+          className="absolute top-4 left-4 md:top-8 md:left-8 px-4 py-2 bg-white/10 hover:bg-white/20 text-white/70 hover:text-white font-mono text-sm rounded-lg transition backdrop-blur-sm border border-white/10 z-50"
+        >
+          ← Back
+        </Link>
+
         <div className="relative w-full max-w-2xl bg-funky-navy/40 backdrop-blur-md border border-funky-purple/30 rounded-3xl shadow-2xl p-8 md:p-12">
           <div className="text-center space-y-8">
             <div className="flex items-center justify-center gap-4 mb-8">
@@ -324,10 +338,10 @@ export default function CreatePage() {
 
               <button
                 type="submit"
-                disabled={!name.trim()}
+                disabled={!name.trim() || isStarting}
                 className="w-full px-8 py-4 bg-funky-pink text-white font-mono font-bold text-lg rounded-2xl hover:scale-105 transition-transform shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                START ✨
+                {isStarting ? "Loading..." : "START ✨"}
               </button>
             </form>
 
