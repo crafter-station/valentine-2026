@@ -26,14 +26,6 @@
   --color-celebration-coral: #ff8fa3;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
 
 .grain::before {
   content: "";
