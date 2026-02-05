@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme {
+  --color-funky-navy: #1a1f3a;
+  --color-funky-purple: #6b4ce6;
+  --color-funky-pink: #ff6b9d;
+  --color-funky-yellow: #ffd93d;
+
+  --color-tipsy-burgundy: #4a1942;
+  --color-tipsy-wine: #8b2f5c;
+  --color-tipsy-rose: #d4567c;
+  --color-tipsy-blush: #ffa6c1;
+
+  --color-cloudy-teal: #1e3a3a;
+  --color-cloudy-mint: #4a7c7c;
+  --color-cloudy-sage: #7ab8b8;
+  --color-cloudy-orange: #ff8c42;
+
+  --color-meowcha-olive: #3d4a2c;
+  --color-meowcha-lime: #c8e6a0;
+  --color-meowcha-cream: #f5f0e8;
+  --color-meowcha-brown: #6b5344;
+
+  --color-celebration-pink: #ff6b9d;
+  --color-celebration-peach: #ffd1dc;
+  --color-celebration-coral: #ff8fa3;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.grain::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.15;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 1;
+}
+
+.grain-intense::before {
+  opacity: 0.25;
+  animation: grain-animation 8s steps(10) infinite;
+}
+
+@keyframes grain-animation {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -10%);
+  }
+  20% {
+    transform: translate(-15%, 5%);
+  }
+  30% {
+    transform: translate(7%, -25%);
+  }
+  40% {
+    transform: translate(-5%, 25%);
+  }
+  50% {
+    transform: translate(-15%, 10%);
+  }
+  60% {
+    transform: translate(15%, 0%);
+  }
+  70% {
+    transform: translate(0%, 15%);
+  }
+  80% {
+    transform: translate(3%, 25%);
+  }
+  90% {
+    transform: translate(-10%, 10%);
+  }
+}
+
+.scanline::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  animation: scanline-animation 6s linear infinite;
+  z-index: 2;
+}
+
+@keyframes scanline-animation {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
