@@ -4,14 +4,25 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import confetti from "canvas-confetti";
 
-export default function Home() {
+type PetVibe = "cats" | "dogs" | "bunnies" | "foxes";
+
+export default function CreatePage() {
+  const [step, setStep] = useState<"select" | "slides">("select");
   const [name, setName] = useState("");
-  const [hasStarted, setHasStarted] = useState(false);
+  const [petVibe, setPetVibe] = useState<PetVibe>("cats");
+  const [customPrompt, setCustomPrompt] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [accepted, setAccepted] = useState(false);
   const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 });
   const noButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const petVibes: { value: PetVibe; label: string; emoji: string }[] = [
+    { value: "cats", label: "Cats", emoji: "🐱" },
+    { value: "dogs", label: "Dogs", emoji: "🐶" },
+    { value: "bunnies", label: "Bunnies", emoji: "🐰" },
+    { value: "foxes", label: "Foxes", emoji: "🦊" },
+  ];
 
   const slides = [
     {
@@ -61,26 +72,26 @@ export default function Home() {
     },
   ];
 
-  // Keyboard navigation
+  // Keyboard navigation (existing code)
   useEffect(() => {
-    if (!hasStarted) return;
+    if (step !== "slides") return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowDown" || e.key === "ArrowRight") {
         const maxSlide = accepted ? slides.length - 1 : slides.length - 2;
         setCurrentSlide((prev) => Math.min(prev + 1, maxSlide));
-      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+      } else if (e.key === "Arrow Up" || e.key === "ArrowLeft") {
         setCurrentSlide((prev) => Math.max(prev - 1, 0));
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [accepted, hasStarted, slides.length]);
+  }, [accepted, step, slides.length]);
 
-  // Física de repulsión con límites del viewport
+  // Magnetic repulsion physics (existing code - keeping it unchanged)
   useEffect(() => {
-    if (!hasStarted) return;
+    if (step !== "slides") return;
 
     const slide = slides[currentSlide];
     if (!slide.hasButtons) return;
@@ -189,7 +200,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [currentSlide, hasStarted, slides]);
+  }, [currentSlide, step, slides]);
 
   useEffect(() => {
     setNoButtonPos({ x: 0, y: 0 });
@@ -235,15 +246,16 @@ export default function Home() {
   const handleStart = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim()) {
-      setHasStarted(true);
+      setStep("slides");
     }
   };
 
-  if (!hasStarted) {
+  // Selection Screen
+  if (step === "select") {
     return (
       <div className="h-screen w-screen bg-gradient-to-br from-funky-navy via-funky-purple to-funky-navy grain-intense scanline flex items-center justify-center p-4">
-        <div className="relative w-full max-w-md bg-funky-navy/40 backdrop-blur-md border border-funky-purple/30 rounded-3xl shadow-2xl p-8 md:p-12">
-          <div className="text-center space-y-6">
+        <div className="relative w-full max-w-2xl bg-funky-navy/40 backdrop-blur-md border border-funky-purple/30 rounded-3xl shadow-2xl p-8 md:p-12">
+          <div className="text-center space-y-8">
             <div className="flex items-center justify-center gap-4 mb-8">
               <div className="text-white/40 text-xs font-mono">SIDE A</div>
               <div className="w-12 h-[2px] bg-white/20"></div>
@@ -254,6 +266,7 @@ export default function Home() {
             </h1>
 
             <form onSubmit={handleStart} className="space-y-6">
+              {/* Name Input */}
               <div className="space-y-2">
                 <label htmlFor="name" className="block text-white/70 font-mono text-sm">
                   who's this for?
@@ -268,6 +281,46 @@ export default function Home() {
                   autoFocus
                 />
               </div>
+
+              {/* Pet Vibe Selector */}
+              <div className="space-y-3">
+                <label className="block text-white/70 font-mono text-sm">
+                  choose your vibe
+                </label>
+                <div className="grid grid-cols-2 gap-3">
+                  {petVibes.map((vibe) => (
+                    <button
+                      key={vibe.value}
+                      type="button"
+                      onClick={() => setPetVibe(vibe.value)}
+                      className={`px-4 py-3 rounded-xl font-mono text-sm transition-all ${
+                        petVibe === vibe.value
+                          ? "bg-funky-pink text-white border-2 border-funky-pink scale-105"
+                          : "bg-black/20 text-white/60 border border-white/20 hover:bg-black/30"
+                      }`}
+                    >
+                      <span className="text-2xl mr-2">{vibe.emoji}</span>
+                      {vibe.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Custom Prompt (Optional) */}
+              <details className="group">
+                <summary className="cursor-pointer text-white/50 font-mono text-sm hover:text-white/70 transition">
+                  Advanced: Custom style prompt
+                </summary>
+                <div className="mt-3">
+                  <textarea
+                    value={customPrompt}
+                    onChange={(e) => setCustomPrompt(e.target.value)}
+                    placeholder="e.g., cyberpunk style, neon colors, futuristic..."
+                    className="w-full px-4 py-3 bg-black/30 border border-white/20 rounded-xl text-white font-mono text-sm placeholder:text-white/30 focus:outline-none focus:border-funky-pink/50 focus:ring-2 focus:ring-funky-pink/20 resize-none"
+                    rows={3}
+                  />
+                </div>
+              </details>
 
               <button
                 type="submit"
@@ -288,6 +341,7 @@ export default function Home() {
     );
   }
 
+  // Slides Screen (existing functionality)
   const slide = slides[currentSlide];
 
   return (
