@@ -361,14 +361,14 @@ export default function CreatePage() {
   return (
     <div className={`h-screen w-screen ${slide.bg} grain-intense scanline transition-colors duration-700 overflow-hidden`}>
       <div ref={containerRef} className="relative h-full w-full flex items-center justify-center p-4 md:p-6">
-        <div className="relative w-full max-w-5xl h-full max-h-screen flex flex-col py-2">
-          <div className="absolute top-2 right-2 md:top-4 md:right-4 z-50 text-white/50 text-xs md:text-sm font-mono bg-black/20 px-3 md:px-4 py-1 md:py-2 rounded-full backdrop-blur-sm">
+        <div className="relative w-full max-w-5xl h-full max-h-screen flex flex-col py-2 animate-in fade-in duration-500">
+          <div className="absolute top-2 right-2 md:top-4 md:right-4 z-50 text-white/50 text-xs md:text-sm font-mono bg-black/20 px-3 md:px-4 py-1 md:py-2 rounded-full backdrop-blur-sm animate-in slide-in-from-right duration-700">
             <span className="text-white/70 font-bold">
               {currentSlide + 1} / {accepted ? slides.length : slides.length - 1}
             </span>
           </div>
 
-          <div className="flex items-center justify-between mb-3 flex-shrink-0">
+          <div className="flex items-center justify-between mb-3 flex-shrink-0 animate-in slide-in-from-top duration-700">
             <div className="flex items-center gap-2 md:gap-4">
               <div className="text-white/40 text-xs md:text-sm font-mono">SIDE A</div>
               <div className="w-8 md:w-12 h-[2px] bg-white/20"></div>
@@ -384,9 +384,9 @@ export default function CreatePage() {
             </div>
           </div>
 
-          <div className={`flex-1 ${slide.frame} rounded-2xl md:rounded-3xl shadow-2xl relative p-4 md:p-8 flex flex-col min-h-0`}>
+          <div className={`flex-1 ${slide.frame} rounded-2xl md:rounded-3xl shadow-2xl relative p-4 md:p-8 flex flex-col min-h-0 animate-in fade-in duration-500`}>
             <div className="flex-1 flex items-center justify-center min-h-0">
-              <div className="relative w-full max-w-md aspect-square flex-shrink-0">
+              <div className="relative w-full max-w-md aspect-square flex-shrink-0 animate-in zoom-in duration-700">
                 <Image
                   src={slide.image}
                   alt="Illustration"
@@ -397,7 +397,7 @@ export default function CreatePage() {
               </div>
             </div>
 
-            <div className="text-center space-y-2 md:space-y-3 mt-4 flex-shrink-0">
+            <div className="text-center space-y-2 md:space-y-3 mt-4 flex-shrink-0 animate-in slide-in-from-bottom duration-700 delay-200">
               <p className="text-white font-serif text-2xl md:text-4xl font-bold leading-tight">
                 {slide.text}
               </p>
@@ -405,11 +405,11 @@ export default function CreatePage() {
             </div>
 
             {slide.hasButtons && (
-              <div className="mt-4 relative h-[100px] flex-shrink-0">
+              <div className="mt-4 relative h-[100px] flex-shrink-0 animate-in fade-in duration-700 delay-300">
                 <div className="absolute inset-0 flex items-center justify-center gap-4 md:gap-6">
                   <button
                     onClick={handleYes}
-                    className="px-8 md:px-12 py-3 md:py-5 bg-meowcha-brown text-meowcha-lime font-mono font-bold text-lg md:text-2xl rounded-2xl hover:scale-110 transition-transform shadow-xl z-20 relative"
+                    className="px-8 md:px-12 py-3 md:py-5 bg-meowcha-brown text-meowcha-lime font-mono font-bold text-lg md:text-2xl rounded-2xl hover:scale-110 transition-all duration-200 shadow-xl hover:shadow-meowcha-lime/50 z-20 relative"
                   >
                     YES ✨
                   </button>
@@ -427,7 +427,7 @@ export default function CreatePage() {
             )}
           </div>
 
-          <div className="mt-3 text-center text-white/30 text-xs md:text-sm font-mono flex-shrink-0">
+          <div className="mt-3 text-center text-white/30 text-xs md:text-sm font-mono flex-shrink-0 animate-in fade-in duration-700 delay-100">
             use ↑↓ or ←→ to navigate
           </div>
         </div>

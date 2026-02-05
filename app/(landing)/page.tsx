@@ -74,10 +74,10 @@ export default function LandingPage() {
           </h2>
 
           {/* Interactive Preview */}
-          <div className={`${slide.bg} grain-intense rounded-3xl p-8 md:p-12 transition-all duration-700 relative overflow-hidden`}>
+          <div className={`${slide.bg} grain-intense rounded-3xl p-8 md:p-12 transition-all duration-700 relative overflow-hidden animate-in fade-in slide-in-from-bottom-4`}>
             <div className="absolute inset-0 scanline pointer-events-none" />
 
-            <div className="relative z-10">
+            <div className="relative z-10 animate-in fade-in duration-500">
               {/* Slide Header */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2">
@@ -105,17 +105,17 @@ export default function LandingPage() {
                 <button
                   onClick={() => setCurrentSlide(Math.max(0, currentSlide - 1))}
                   disabled={currentSlide === 0}
-                  className="px-4 py-2 bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed text-white font-mono rounded-lg transition"
+                  className="px-4 py-2 bg-white/10 hover:bg-white/20 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 text-white font-mono rounded-lg transition-all duration-200"
                 >
                   ← Prev
                 </button>
-                <div className="text-white/70 font-mono text-sm">
+                <div className="text-white/70 font-mono text-sm px-3 py-1 bg-black/20 rounded-full">
                   {currentSlide + 1} / {previewSlides.length}
                 </div>
                 <button
                   onClick={() => setCurrentSlide(Math.min(previewSlides.length - 1, currentSlide + 1))}
                   disabled={currentSlide === previewSlides.length - 1}
-                  className="px-4 py-2 bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed text-white font-mono rounded-lg transition"
+                  className="px-4 py-2 bg-white/10 hover:bg-white/20 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 text-white font-mono rounded-lg transition-all duration-200"
                 >
                   Next →
                 </button>
@@ -140,7 +140,7 @@ export default function LandingPage() {
           </p>
           <Link
             href="/create"
-            className="inline-block px-12 py-5 bg-gradient-to-r from-funky-pink to-celebration-pink text-white font-mono font-bold text-xl rounded-2xl hover:scale-105 transition-transform shadow-2xl"
+            className="inline-block px-12 py-5 bg-gradient-to-r from-funky-pink to-celebration-pink text-white font-mono font-bold text-xl rounded-2xl hover:scale-105 hover:shadow-funky-pink/50 transition-all duration-300 shadow-2xl animate-in fade-in slide-in-from-bottom-2 delay-300"
           >
             Create yours ✨
           </Link>
