@@ -114,7 +114,7 @@ export default function LandingPage() {
                 </div>
                 <button
                   onClick={() => setCurrentSlide(Math.min(PREVIEW_SLIDES.length - 1, currentSlide + 1))}
-                  disabled={currentSlide === previewSlides.length - 1}
+                  disabled={currentSlide === PREVIEW_SLIDES.length - 1}
                   className="px-4 py-2 bg-white/10 hover:bg-white/20 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 text-white font-mono rounded-lg transition-all duration-200"
                 >
                   Next →
