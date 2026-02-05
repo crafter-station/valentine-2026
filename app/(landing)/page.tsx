@@ -1,35 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
+
+const PREVIEW_SLIDES = [
+  {
+    title: "MEMORIES",
+    text: "Every moment with you feels like a favorite song on repeat",
+    bg: "bg-gradient-to-br from-funky-navy via-funky-purple to-funky-navy",
+  },
+  {
+    title: "VIBES",
+    text: "You're the perfect playlist",
+    bg: "bg-gradient-to-br from-tipsy-burgundy via-tipsy-wine to-tipsy-burgundy",
+  },
+  {
+    title: "FEELS",
+    text: "Like a cloudy day with you",
+    bg: "bg-gradient-to-br from-cloudy-teal via-cloudy-mint to-cloudy-teal",
+  },
+  {
+    title: "QUESTION",
+    text: "So... wanna be my Valentine?",
+    bg: "bg-gradient-to-br from-meowcha-olive via-meowcha-lime/20 to-meowcha-olive",
+  },
+] as const;
 
 export default function LandingPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const previewSlides = [
-    {
-      title: "MEMORIES",
-      text: "Every moment with you feels like a favorite song on repeat",
-      bg: "bg-gradient-to-br from-funky-navy via-funky-purple to-funky-navy",
-    },
-    {
-      title: "VIBES",
-      text: "You're the perfect playlist",
-      bg: "bg-gradient-to-br from-tipsy-burgundy via-tipsy-wine to-tipsy-burgundy",
-    },
-    {
-      title: "FEELS",
-      text: "Like a cloudy day with you",
-      bg: "bg-gradient-to-br from-cloudy-teal via-cloudy-mint to-cloudy-teal",
-    },
-    {
-      title: "QUESTION",
-      text: "So... wanna be my Valentine?",
-      bg: "bg-gradient-to-br from-meowcha-olive via-meowcha-lime/20 to-meowcha-olive",
-    },
-  ];
-
-  const slide = previewSlides[currentSlide];
+  const slide = PREVIEW_SLIDES[currentSlide];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 grain-intense scanline">
@@ -110,10 +110,10 @@ export default function LandingPage() {
                   ← Prev
                 </button>
                 <div className="text-white/70 font-mono text-sm px-3 py-1 bg-black/20 rounded-full">
-                  {currentSlide + 1} / {previewSlides.length}
+                  {currentSlide + 1} / {PREVIEW_SLIDES.length}
                 </div>
                 <button
-                  onClick={() => setCurrentSlide(Math.min(previewSlides.length - 1, currentSlide + 1))}
+                  onClick={() => setCurrentSlide(Math.min(PREVIEW_SLIDES.length - 1, currentSlide + 1))}
                   disabled={currentSlide === previewSlides.length - 1}
                   className="px-4 py-2 bg-white/10 hover:bg-white/20 hover:scale-105 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 text-white font-mono rounded-lg transition-all duration-200"
                 >
